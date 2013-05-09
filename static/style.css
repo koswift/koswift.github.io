@@ -1,0 +1,46 @@
+/* Customize bootstrap container width */
+@media (min-width: 1200px) {
+  .container { max-width: 900px; }
+}
+
+/* Custom CSS Rules */
+#header {
+  display: flex;
+  align-items: center;
+}
+#header #text { line-height: 0.8; }
+#header small { font-size: 50%; }
+#header #logo {
+  height: 100px;
+  margin-right: 20px;
+}
+
+article {
+  font-size: 1.1em;
+  line-height: 1.5;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* GitHub Corner */
+.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
+
+/* Mobile support */
+@media (max-width: 550px) {
+  /* Hide github corner on small screen */
+  .github-corner { display: none }
+
+  #header #text {
+    font-size: 0.75em;
+  }
+  #header #logo {
+    height: 50px;
+    margin-right: 10px;
+  }
+  footer {
+    font-size: 0.8em;
+  }
+}
