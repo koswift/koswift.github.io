@@ -1,21 +1,21 @@
 # -*- encoding:utf-8 -*-
 
 # SQL Alchemy settings
-DB_URI = 'sqlite:///rustkr.db'
+DB_URI = 'sqlite:///koswift.db'
 
 SECRET_KEY = '7_Mk_/^6!//`cuG%`+\\8=/ZE3.(BbAa5'
 
 DEBUG = True
 
-CHANNEL = '#rust'
+CHANNEL = '#swift'
 
 CONNECTIONS = [
     {
-        'name': 'rustkr',
+        'name': 'koswift',
         'host': 'ocarina.irc.ozinger.org',
         'port': 8080,
-        'nick': 'stainless',
-        'autojoins': ['#rust'],
+        'nick': 'swallow',
+        'autojoins': [CHANNEL],
         'enabled': True,
         'admin': None,
         'invite': 'disallow',
@@ -30,6 +30,5 @@ NICK_WHITELIST = [
 try:
     from local_settings import *  # noqa
 except ImportError:
-    print '*** NO local_settings.py file set up. read README! ***'
+    print('*** NO local_settings.py file set up. read README! ***')
     pass
-

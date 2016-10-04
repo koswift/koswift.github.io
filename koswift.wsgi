@@ -6,11 +6,9 @@ import sys
 dname = os.path.dirname(__file__)
 sys.path.insert(0, dname)
 import site
-site.addsitedir(dname + '/.env/lib/python2.7/site-packages')
+site.addsitedir(dname + '/.env/lib/python3.4/site-packages')
 
-from flask import Flask
-from rustkr import app as application
+from koswift import app as application
 
 import settings
 application.config.from_object(settings)
-

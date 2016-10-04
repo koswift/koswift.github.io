@@ -1,4 +1,4 @@
-*OBSOLETED*
-========
+koswift.org
+===========
 
-See [rust-kr.org](https://github.com/rust-kr/rust-kr.org) instead.
+See [koswift.org](http://koswift.org).

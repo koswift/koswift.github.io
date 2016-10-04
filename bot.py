@@ -18,10 +18,12 @@ for chan in connopt.autojoins:
     pubsub.subscribe(chan + 'in')
 listener = pubsub.listen()
 
+
 class Listener(threading.Thread):
     def run(self):
         for item in listener:
-            if item['type'] == 'subscribe': continue
+            if item['type'] == 'subscribe':
+                continue
             if item['type'] == 'message':
                 chan = item['channel'][:-2]
                 strtime, sender, message = item['data'].split(':', 2)
@@ -34,15 +36,18 @@ bglistener.start()
 
 client = BotClient()
 
+
 def mask(nick):
     for white in bot_settings.NICK_WHITELIST:
         if nick.startswith(white):
             return nick.encode('utf-8')
     return '*' * len(nick)
 
+
 @client.events.hookmsg(PRIVMSG)
 def on_message(connection, sender, target, message):
-    if target[0] != '#': return
+    if target[0] != '#':
+        return
     identity = util.parseid(sender)
     masked = mask(identity.nick)
     redismsg = ':'.join((str(int(time.time())), masked, message.encode('utf-8')))
@@ -50,8 +55,9 @@ def on_message(connection, sender, target, message):
     redisc.lpush(starget, redismsg)
     redisc.publish(starget + 'out', redismsg)
 
+
 starttime = str(int(time.time()))
-redisc.lpush(settings.CHANNEL, starttime + ':rust-kr.org:** 연결이 재시작되었습니다 **')
+redisc.lpush(settings.CHANNEL, starttime + ':koswift.org:** 연결이 재시작되었습니다 **')
 client.start()
 
 client.interactive()

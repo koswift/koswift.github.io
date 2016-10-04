@@ -4,6 +4,7 @@ import time
 
 import settings
 
+
 class Subscriber(threading.Thread):
     def __init__(self, redis):
         self.pubsub = redis.pubsub()
@@ -12,7 +13,7 @@ class Subscriber(threading.Thread):
         self.keep_going = True
 
         threading.Thread.__init__(self)
-        
+
     def run(self):
         while self.keep_going:
             message = self.pubsub.get_message()
