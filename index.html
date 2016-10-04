@@ -28,6 +28,11 @@
 <h4 style="margin: 20px 0; text-align: center;">
   <a href="http://webchat.ozinger.org/#swift">http://webchat.ozinger.org/#swift</a>
 </h4>
+<ul id="irclogs">
+</ul>
+<div id="irclogs-loading">최근 대화를 불러오는 중입니다. 위의 링크를 눌러 다른 창에서 더 편리하게 채팅을 시작할 수도 있습니다.</div>
+<div><input type="text" name="nick" size="16" value="대화명" /> <input text="text" name="text" size="80" /><a href="#" onclick="javascript:send()">보내기</a></div>
+
 <h2>관련 링크 모음</h2>
 <ul>
     <li>스위프트 공식 사이트 (영문): <a href="http://swift.org">swift.org</a></li>
@@ -46,6 +51,40 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/languages/swift.min.js"></script>
 <script>
   hljs.initHighlightingOnLoad();
+</script>
+<script>
+  var input = $('input[name=text]');
+  input.keypress(function(e) {
+    if (e.keyCode == 13) {
+      return send();
+    }
+  });
+
+  var last_time = 0;
+  function update() {
+    $.post('http://api.koswift.org/api/update', {time: last_time}, null, 'jsonp').done(function(data) {
+      var log_box = $('ul#irclogs');
+      var items = eval(data);
+      for (var index in items) {
+        var item = items[index];
+        last_time = item[0];
+        $('<li/>').text('<' + item[1] + '> ' + item[2]).appendTo(log_box);
+      }
+      $('#irclogs-loading').hide();
+      update();
+    });
+  }
+  update();
+
+  function send() {
+    var nick = $('input[name=nick]').val();
+    var text = input.val();
+    if (text.length > 0) {
+      $.post('http://api.koswift.org/api/send', {nick: nick, text: text}).done(function(data) {
+        input.val('');
+      });
+    }
+  }
 </script>
 </body>
 </html>
